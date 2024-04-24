@@ -22,10 +22,13 @@ class _HomeState extends State<Home> {
             ListView.builder(
               itemCount: 2,
               itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Text("Select CityWall Mall"),
-                  subtitle: Text(
-                    'Skaet District Center, District Center, Sector 6  Pushp Vihar New Helhi Delhi 110017',
+                return Card(
+                  child: ListTile(
+                    leading: Icon(Icons.timer),
+                    title: Text("Select CityWall Mall"),
+                    subtitle: Text(
+                      'Skaet District Center, District Center, Sector 6  Pushp Vihar New Helhi Delhi 110017',
+                    ),
                   ),
                 );
               },
