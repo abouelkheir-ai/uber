@@ -107,20 +107,15 @@ class BannerSedan extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: 435,
-                top: 7,
-                child: Transform(
-                  transform: Matrix4.identity()
-                    ..translate(0.0, 0.0)
-                    ..rotateZ(3.14),
-                  child: Container(
-                    width: 210,
-                    height: 120,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/half_car.png'),
-                        fit: BoxFit.fill,
-                      ),
+                left: 180,
+                top: 0,
+                child: Container(
+                  width: 210,
+                  height: 120,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/half_car.png'),
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                 ),
@@ -165,12 +160,12 @@ class BannerSedan extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
                       Container(
-                        child: Row(
+                        child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               'Book Premier',
                               style: TextStyle(
                                 color: Colors.white,
@@ -180,24 +175,10 @@ class BannerSedan extends StatelessWidget {
                                 height: 0,
                               ),
                             ),
-                            const SizedBox(width: 3),
-                            Container(
-                              width: 16,
-                              height: 16,
-                              padding: const EdgeInsets.only(
-                                top: 2,
-                                left: 2,
-                                right: 1.76,
-                                bottom: 2,
-                              ),
-                              clipBehavior: Clip.antiAlias,
-                              decoration: const BoxDecoration(),
-                              child: const Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [],
-                              ),
+                            SizedBox(width: 6),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
                             ),
                           ],
                         ),
