@@ -23,3 +23,8 @@ const fontSize20withBold = TextStyle(
   color: Colors.black,
   fontFamily: 'Poppins-Bold',
 );
+
+const lightTheme = TextTheme(
+  headlineLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  headlineMedium: TextStyle(fontSize: 16),
+);

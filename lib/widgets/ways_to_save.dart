@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uber/constants/my_styles.dart';
+import 'package:uber/constants/themes/my_styles.dart';
 
 class WaysToSaveItem extends StatelessWidget {
   const WaysToSaveItem(
