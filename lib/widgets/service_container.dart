@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:uber/widgets/promo_widget.dart';
 
 class ServiceBox extends StatelessWidget {
-  const ServiceBox({super.key, required this.title, required this.imagePath});
+  const ServiceBox(
+      {super.key,
+      required this.title,
+      required this.imagePath,
+      required this.hasPromo});
   final String title;
   final String imagePath;
+  final bool hasPromo;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,54 +55,14 @@ class ServiceBox extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Positioned(
-                      left: 8,
-                      top: 0,
-                      child: SizedBox(
-                        width: 57,
-                        height: 20,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              left: 0,
-                              top: 0,
-                              child: Container(
-                                width: 57,
-                                height: 20,
-                                decoration: ShapeDecoration(
-                                  color: const Color(0xFF3B864E),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              left: 10,
-                              top: 2,
-                              child: Text(
-                                'Promo',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontFamily: 'Uber Move',
-                                  fontWeight: FontWeight.w500,
-                                  height: 0,
-                                  letterSpacing: 0.14,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    hasPromo ? const PromoWidget() : Container()
                   ],
                 ),
               ),
               const SizedBox(height: 8),
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 14,
                   fontFamily: 'Uber Move',
