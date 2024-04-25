@@ -24,16 +24,16 @@ class _HomeState extends State<Home> {
             Material(
               elevation: 1.5,
               child: Container(
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
                 width: double.infinity,
                 color: Colors.white,
                 child: Column(
                   children: [
                     const SearchTextField(),
-                    MyListTile(),
-                    Divider(),
-                    MyListTile(),
-                    SizedBox(
+                    const MyListTile(),
+                    const Divider(),
+                    const MyListTile(),
+                    const SizedBox(
                       height: 30,
                     ),
                     Image.asset('assets/images/banner-payment.png'),
@@ -41,24 +41,39 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 50,
-            ),
             Material(
               elevation: 1.5,
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Suggestions'),
-                        TextButton(onPressed: () {}, child: Text('See all'))
+                        const Text('Suggestions'),
+                        TextButton(
+                            onPressed: () {}, child: const Text('See all'))
                       ],
                     ),
-                    Row(
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ServiceBox(),
+                        ServiceBox(
+                          title: 'Ride',
+                          imagePath: 'assets/images/ride.png',
+                        ),
+                        ServiceBox(
+                          title: 'Package',
+                          imagePath: 'assets/images/package.png',
+                        ),
+                        ServiceBox(
+                          title: 'Rental',
+                          imagePath: 'assets/images/rental.png',
+                        ),
+                        ServiceBox(
+                          title: 'Reserve',
+                          imagePath: 'assets/images/calender.png',
+                        ),
                       ],
                     )
                   ],
