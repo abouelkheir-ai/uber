@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:uber/widgets/banner_book.dart';
 import 'package:uber/widgets/my_list_tile.dart';
 import 'package:uber/widgets/search_textField.dart';
 import 'package:uber/widgets/service_container.dart';
@@ -19,35 +19,57 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: SafeArea(
         child: ListView(
-          // padding: const EdgeInsets.all(16.0),
           children: [
-            Material(
-              elevation: 1.5,
-              child: Container(
-                margin: const EdgeInsets.all(20),
-                width: double.infinity,
+             Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              width: double.infinity,
+              decoration: BoxDecoration(
                 color: Colors.white,
-                child: Column(
-                  children: [
-                    const SearchTextField(),
-                    const MyListTile(),
-                    const Divider(),
-                    const MyListTile(),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Image.asset('assets/images/banner-payment.png'),
-                  ],
-                ),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  const SearchTextField(),
+                  const MyListTile(),
+                  const Divider(),
+                  const MyListTile(),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Image.asset('assets/images/banner-payment.png'),
+                ],
               ),
             ),
-            Material(
-              elevation: 1.5,
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    Row(
+
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding: const EdgeInsets.only(left: 10),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text('Suggestions'),
@@ -55,31 +77,33 @@ class _HomeState extends State<Home> {
                             onPressed: () {}, child: const Text('See all'))
                       ],
                     ),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ServiceBox(
-                          title: 'Ride',
-                          imagePath: 'assets/images/ride.png',
-                        ),
-                        ServiceBox(
-                          title: 'Package',
-                          imagePath: 'assets/images/package.png',
-                        ),
-                        ServiceBox(
-                          title: 'Rental',
-                          imagePath: 'assets/images/rental.png',
-                        ),
-                        ServiceBox(
-                          title: 'Reserve',
-                          imagePath: 'assets/images/calender.png',
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+                  ),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ServiceBox(
+                        title: 'Ride',
+                        imagePath: 'assets/images/ride.png',
+                      ),
+                      ServiceBox(
+                        title: 'Package',
+                        imagePath: 'assets/images/package.png',
+                      ),
+                      ServiceBox(
+                        title: 'Rental',
+                        imagePath: 'assets/images/rental.png',
+                      ),
+                      ServiceBox(
+                        title: 'Reserve',
+                        imagePath: 'assets/images/calender.png',
+                      ),
+                    ],
+                  ),
+                  const Text('Ways to save with Uber'),
+                  BannerSedan(),
+                ],
               ),
-            )
+            ),
           ],
         ),
       ),

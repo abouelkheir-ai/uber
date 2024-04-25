@@ -43,8 +43,8 @@ class ServiceBox extends StatelessWidget {
                         height: 38,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage('imagePath'),
-                            // fit: BoxFit.cover,
+                            image: AssetImage(imagePath),
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ),
