@@ -11,8 +11,9 @@ class _SearchTextFieldState extends State<SearchTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 211, 209, 209),
+        color: Color.fromARGB(255, 244, 240, 240),
         borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
