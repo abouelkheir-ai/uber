@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapSample extends StatefulWidget {
@@ -13,9 +14,10 @@ class MapSample extends StatefulWidget {
 class MapSampleState extends State<MapSample> {
   late final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
+  Position? currentPosition;
 
   static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
+    target: LatLng(37.42796133580664, 122.085749655962),
     zoom: 14.4746,
   );
 
@@ -31,24 +33,36 @@ class MapSampleState extends State<MapSample> {
       body: SizedBox(
         width: double.infinity,
         child: GoogleMap(
-          mapType: MapType.hybrid,
+          myLocationEnabled: true,
+          mapType: MapType.normal,
           initialCameraPosition: _kGooglePlex,
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: const Text('To the lake!'),
-        icon: const Icon(Icons.directions_boat),
-      ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        _currentLocation();
+      }),
     );
   }
 
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
     await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-      // await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+    // await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+  }
+
+  Future<void> _currentLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      currentPosition = position;
+    });
+
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newLatLng(
+      LatLng(position.latitude, position.longitude),
+    ));
   }
 }
