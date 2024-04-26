@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:uber/widgets/banner_book.dart';
 import 'package:uber/widgets/bottom_navigation_widget.dart';
 import 'package:uber/widgets/header_title.dart';
@@ -23,10 +25,10 @@ class _HomeState extends State<Home> {
             children: [
               Container(
                 margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                     EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
@@ -43,8 +45,8 @@ class _HomeState extends State<Home> {
                     const MyListTile(),
                     const Divider(),
                     const MyListTile(),
-                    const SizedBox(
-                      height: 30,
+                     SizedBox(
+                      height: 30.h,
                     ),
                     Image.asset('assets/images/banner-payment.png'),
                   ],
@@ -52,11 +54,11 @@ class _HomeState extends State<Home> {
               ),
               Container(
                 margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                padding: const EdgeInsets.only(left: 10),
+                     EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                padding:  EdgeInsets.only(left: 10.w),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
@@ -104,7 +106,7 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                     const HeaderTitle(title: 'Ways to save with Uber'),
-                    const SingleChildScrollView(
+                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
@@ -114,7 +116,7 @@ class _HomeState extends State<Home> {
                             subTitle: 'Affordable motorcycle pick-up',
                           ),
                           SizedBox(
-                            width: 10,
+                            width: 10.w,
                           ),
                           WaysToSaveItem(
                             imagePath: 'assets/images/pretty_woman.png',
@@ -124,18 +126,18 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                     SizedBox(
+                      height: 20.h,
                     ),
                     const BannerSedan(),
-                    const SizedBox(
-                      height: 30,
+                     SizedBox(
+                      height: 30.h,
                     ),
                     const HeaderTitle(title: 'Ways to plan with Uber'),
-                    const SizedBox(
-                      height: 15,
+                     SizedBox(
+                      height: 15.h,
                     ),
-                    const SingleChildScrollView(
+                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
@@ -145,7 +147,7 @@ class _HomeState extends State<Home> {
                             subTitle: 'Get to remote locations with ease',
                           ),
                           SizedBox(
-                            width: 10,
+                            width: 10.w,
                           ),
                           WaysToSaveItem(
                             imagePath: 'assets/images/head.png',
@@ -155,12 +157,12 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
+                     SizedBox(
+                      height: 30.h,
                     ),
                     const HeaderTitle(title: 'More ways to use Uber'),
-                    const SizedBox(
-                      height: 15,
+                     SizedBox(
+                      height: 15.h,
                     ),
                     const SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -182,17 +184,17 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
+                     SizedBox(
+                      height: 30.h,
                     ),
                     const HeaderTitle(title: 'Around you'),
-                    const SizedBox(
-                      height: 15,
+                     SizedBox(
+                      height: 15.h,
                     ),
                     Container(
                         margin: const EdgeInsets.only(left: 5),
-                        width: 344,
-                        height: 198,
+                        width: 344.w,
+                        height: 198.h,
                         child: Image.asset('assets/images/near_cars.png')),
                   ],
                 ),

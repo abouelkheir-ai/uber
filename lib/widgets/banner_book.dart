@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BannerSedan extends StatelessWidget {
   const BannerSedan({super.key});
@@ -8,16 +9,16 @@ class BannerSedan extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 344,
-          height: 134,
+          width: 344.w,
+          height: 134.h,
           child: Stack(
             children: [
               Positioned(
                 left: 0,
                 top: 0,
                 child: Container(
-                  width: 344,
-                  height: 134,
+                  width: 344.w,
+                  height: 134.h,
                   decoration: ShapeDecoration(
                     color: const Color(0xFF927023),
                     shape: RoundedRectangleBorder(
@@ -30,8 +31,8 @@ class BannerSedan extends StatelessWidget {
                 left: 0,
                 top: 0,
                 child: Container(
-                  width: 344,
-                  height: 134,
+                  width: 344.w,
+                  height: 134.h,
                   decoration: ShapeDecoration(
                     color: const Color(0xFF927023),
                     shape: RoundedRectangleBorder(
@@ -59,35 +60,35 @@ class BannerSedan extends StatelessWidget {
                       ),
                       const SizedBox(width: 7.80),
                       Container(
-                        width: 9,
-                        height: 9,
+                        width: 9.w,
+                        height: 9.h,
                         decoration: const ShapeDecoration(
                           color: Color(0xFFAC924B),
                           shape: OvalBorder(),
                         ),
                       ),
-                      const SizedBox(width: 7.80),
+                       SizedBox(width: 7.80.w),
                       Container(
-                        width: 8,
-                        height: 8,
+                        width: 8.w,
+                        height: 8.h,
                         decoration: const ShapeDecoration(
                           color: Color(0xFFAC924B),
                           shape: OvalBorder(),
                         ),
                       ),
-                      const SizedBox(width: 7.80),
+                       SizedBox(width: 7.80.w),
                       Container(
-                        width: 7,
-                        height: 7,
+                        width: 7.w,
+                        height: 7.h,
                         decoration: const ShapeDecoration(
                           color: Color(0xFFAC924B),
                           shape: OvalBorder(),
                         ),
                       ),
-                      const SizedBox(width: 7.80),
+                       SizedBox(width: 7.80.w),
                       Container(
-                        width: 4,
-                        height: 4,
+                        width: 4.w,
+                        height: 4.h,
                         decoration: const ShapeDecoration(
                           color: Color(0xFFAC924B),
                           shape: OvalBorder(),
@@ -101,8 +102,8 @@ class BannerSedan extends StatelessWidget {
                 left: 232,
                 top: -4,
                 child: Container(
-                  width: 122,
-                  height: 146,
+                  width: 122.w,
+                  height: 146.h,
                   decoration: const BoxDecoration(color: Color(0xFF9A7A3A)),
                 ),
               ),
@@ -110,8 +111,8 @@ class BannerSedan extends StatelessWidget {
                 left: 180,
                 top: 0,
                 child: Container(
-                  width: 210,
-                  height: 120,
+                  width: 210.w,
+                  height: 120.h,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/images/half_car.png'),
@@ -130,7 +131,7 @@ class BannerSedan extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        child: const Column(
+                        child:  Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,7 +140,7 @@ class BannerSedan extends StatelessWidget {
                               'Comfortable sedan',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: 20.sp,
                                 fontFamily: 'Uber Move',
                                 fontWeight: FontWeight.w500,
                                 height: 0,
@@ -149,7 +150,7 @@ class BannerSedan extends StatelessWidget {
                               'rides',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: 20.sp,
                                 fontFamily: 'Uber Move',
                                 fontWeight: FontWeight.w500,
                                 height: 0,
@@ -158,9 +159,9 @@ class BannerSedan extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 12),
+                       SizedBox(height: 12.h),
                       Container(
-                        child: const Row(
+                        child:  Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -169,13 +170,13 @@ class BannerSedan extends StatelessWidget {
                               'Book Premier',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18,
+                                fontSize: 18.sp,
                                 fontFamily: 'Uber Move Text',
                                 fontWeight: FontWeight.w400,
                                 height: 0,
                               ),
                             ),
-                            SizedBox(width: 6),
+                            SizedBox(width: 6.w),
                             Icon(
                               Icons.arrow_forward,
                               color: Colors.white,

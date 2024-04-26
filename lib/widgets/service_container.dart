@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uber/widgets/promo_widget.dart';
 
 class ServiceBox extends StatelessWidget {
@@ -15,24 +16,24 @@ class ServiceBox extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          width: 75,
-          height: 97,
+          width: 75.w,
+          height: 97.h,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                width: 75,
-                height: 72,
+                width: 75.w,
+                height: 72.h,
                 child: Stack(
                   children: [
                     Positioned(
                       left: 0,
                       top: 8,
                       child: Container(
-                        width: 75,
-                        height: 64,
+                        width: 75.w,
+                        height: 64.h,
                         decoration: ShapeDecoration(
                           color: const Color(0xFFEEEEEE),
                           shape: RoundedRectangleBorder(
@@ -43,10 +44,10 @@ class ServiceBox extends StatelessWidget {
                     ),
                     Positioned(
                       left: 4,
-                      top: 28,
+                      top: 20,
                       child: Container(
-                        width: 67,
-                        height: 38,
+                        width: 67.w,
+                        height: 38.h,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage(imagePath),
@@ -59,17 +60,19 @@ class ServiceBox extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               Text(
                 title,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontFamily: 'Uber Move',
-                  fontWeight: FontWeight.w500,
-                  height: 0,
-                  letterSpacing: 0.14,
-                ),
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w500,
+                      height: 0,
+                      letterSpacing: 0.14,
+                      color: MediaQuery.of(context).platformBrightness ==
+                              Brightness.dark
+                          ? const Color(0xffAFAFAF)
+                          : Colors.black,
+                    ),
               ),
             ],
           ),

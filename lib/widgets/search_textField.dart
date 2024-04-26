@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchTextField extends StatefulWidget {
   const SearchTextField({super.key});
@@ -11,39 +12,49 @@ class _SearchTextFieldState extends State<SearchTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      margin:  EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 244, 240, 240),
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
         children: [
           Expanded(
             child: TextFormField(
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.search),
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search),
                 border: InputBorder.none,
                 hintText: 'Where to?',
-                hintStyle: TextStyle(fontSize: 22),
+                hintStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    ),
               ),
             ),
           ),
           Container(
-            width: 105,
-            height: 39,
+            width: 105.w,
+            height: 39.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onSecondary,
             ),
-            margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
-            child: const Row(
+            margin:  EdgeInsets.symmetric(horizontal: 12.0.w, vertical: 10.h),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Icon(
+                const Icon(
                   Icons.access_time_filled_rounded,
+                  color: Colors.black,
                 ),
-                Text('Now'),
-                Icon(Icons.arrow_drop_down_rounded)
+                Text(
+                  'Now',
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: Theme.of(context).colorScheme.background),
+                ),
+                const Icon(
+                  Icons.arrow_drop_down_rounded,
+                  color: Colors.black,
+                )
               ],
             ),
           ),
