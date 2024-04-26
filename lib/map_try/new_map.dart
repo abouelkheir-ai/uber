@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:uber/bloc/cubit/location_cubit.dart';
+import 'package:uber/services/location_service.dart';
 
 class MapSample extends StatefulWidget {
   const MapSample({Key? key}) : super(key: key);
@@ -13,60 +11,51 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  late Position _currentPosition;
-  @override
-  void initState() {
-    super.initState();
-    _getCurrentPosition();
-  }
+  var locationService = LocationService.instance;
 
-  Future<void> _getCurrentPosition() async {
-    Position myPosition =
-        await BlocProvider.of<LocationCubit>(context).getLocation();
-    setState(() {
-      _currentPosition = myPosition;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Widget mapWidget;
-    return BlocBuilder<LocationCubit, LocationState>(
-      builder: (context, state) {
-        if (state is LocationLoading) {
-          // Show CircularProgressIndicator when loading
-          mapWidget = const Center(child: CircularProgressIndicator());
-        } else {
-          // Show GoogleMap when not loading
-          mapWidget = GoogleMap(
+  Widget _locationBuilder(context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      // While waiting for the location, show a loading indicator.
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    } else if (snapshot.hasError) {
+      return Scaffold(
+        body: Center(
+          child: Text('Error: ${snapshot.error}'),
+        ),
+      );
+    } else {
+      Position myPosition = snapshot.data as Position;
+      return Scaffold(
+        body: SafeArea(
+          child: GoogleMap(
             mapType: MapType.normal,
-            initialCameraPosition: _currentPosition != null
-                ? CameraPosition(
-                    target: LatLng(
-                      _currentPosition.latitude,
-                      _currentPosition.longitude,
-                    ),
-                    zoom: 14,
-                  )
-                : const CameraPosition(
-                    target: LatLng(0, 0),
-                    zoom: 14,
-                  ),
+            initialCameraPosition: CameraPosition(
+              target: LatLng(
+                myPosition.latitude,
+                myPosition.longitude,
+              ),
+              zoom: 17,
+            ),
             onMapCreated: (GoogleMapController controller) {
-              // controller.setMapStyle(Utils.mapStyles);
             },
             myLocationEnabled: true,
             myLocationButtonEnabled: true,
             zoomControlsEnabled: true,
-          );
-        }
-
-        return Scaffold(
-          body: SafeArea(
-            child: mapWidget,
           ),
-        );
-      },
-    );
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: locationService
+            .getLocation(), // or BlocProvider.of<LocationCubit>(context).getLocation(),
+        builder: _locationBuilder);
   }
 }
