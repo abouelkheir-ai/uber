@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomizedButtonNavigation extends StatefulWidget {
@@ -14,37 +15,39 @@ class _CustomizedButtonNavigationState
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Colors.white,
+      fixedColor: Colors.black,
       type: BottomNavigationBarType.fixed,
       items: [
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            'assets/svg/bottom_navigation/home.svg', // Replace with your SVG file path
-            width: 24,
-            height: 24,
+            'assets/svg/bottom_navigation/home.svg',
+            width: 24.w,
+            height: 24.h,
           ),
           label: "Home ",
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
             'assets/svg/bottom_navigation/service.svg',
-            width: 24,
-            height: 24,
+            width: 24.w,
+            height: 24.h,
           ),
           label: "Service",
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
             'assets/svg/bottom_navigation/activity.svg',
-            width: 24,
-            height: 24,
+            width: 24.w,
+            height: 24.h,
           ),
           label: "activity",
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
             'assets/svg/bottom_navigation/account.svg',
-            width: 24,
-            height: 24,
+            width: 24.w,
+            height: 24.h,
           ),
           label: "account",
         ),

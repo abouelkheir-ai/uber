@@ -1,48 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-ThemeData lightTheme = ThemeData(
+ThemeData darkTheme = ThemeData(
   // Define the primary color for your app
-  primaryColor: Colors.white,
+  primaryColor: Colors.black,
   // Define the default font family
   fontFamily: 'Roboto',
   // Define the text theme for your app
-  textTheme: TextTheme(
+  textTheme:  TextTheme(
     headlineLarge: TextStyle(
       fontSize: 25.sp,
       fontWeight: FontWeight.bold,
-      color: Colors.black,
+      color: Colors.white,
       fontFamily: 'Poppins-Bold',
     ),
     headlineMedium: TextStyle(
       fontSize: 22.sp,
       fontFamily: 'Poppins-Bold',
       fontWeight: FontWeight.bold,
-      color: Colors.black,
+      color: Colors.white,
     ),
     bodyLarge: TextStyle(
         fontSize: 18.sp,
-        color: Colors.black,
+        color: Colors.white,
         fontFamily: 'Poppins-SemiBold',
         fontWeight: FontWeight.w500),
     bodySmall: TextStyle(
-        fontSize: 16.sp,
+        fontSize: 15.sp,
         color: Color(0xff6B6B6B),
         fontFamily: 'Poppins-SemiBold',
         fontWeight: FontWeight.w400),
   ),
-  colorScheme: ColorScheme(
-    brightness: Brightness.light,
+  colorScheme: const ColorScheme(
+    brightness: Brightness.dark,
     primary: Colors.white,
-    onPrimary: Colors.black,
-    onPrimaryContainer: const Color(0xffAFAFAF),
-    secondary: const Color(0xffAFAFAF).withOpacity(0.4),
-    onSecondary: Colors.white, // Adjust as needed
+    onPrimary: Colors.white,
+    secondary: Color(0xff6B6B6B), // Adjust as needed
+    onSecondary: Color(0xffAFAFAF),
     error: Colors.red,
-    onError: Colors.white, // Adjust as needed
-    background: Color(0xffEEEEEE), // Adjust as needed
+    onError: Colors.black, // Adjust as needed
+    background: Colors.black, // Adjust as needed
     onBackground: Colors.black,
-    surface: Colors.white,
+    surface: Colors.black,
     onSurface: Colors.black,
   ),
 );

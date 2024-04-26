@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:uber/constants/themes/my_styles.dart';
 
 class HeaderTitle extends StatelessWidget {
   const HeaderTitle({super.key, required this.title});
@@ -8,7 +7,7 @@ class HeaderTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: fontSize22withBold,
+      style: Theme.of(context).textTheme.headlineLarge,
     );
   }
 }

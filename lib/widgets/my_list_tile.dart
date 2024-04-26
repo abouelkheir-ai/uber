@@ -6,12 +6,19 @@ class MyListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromARGB(255, 254, 250, 250),
+      color: Theme.of(context).primaryColor,
       child: ListTile(
-        leading: Icon(Icons.timer),
-        title: Text("Select CityWall Mall"),
+        leading: Icon(
+          Icons.place,
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+        title: Text(
+          "Select CityWall Mall",
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
         subtitle: Text(
           'Skaet District Center, District Center, Sector 6  Pushp Vihar New Helhi Delhi 110017',
+          style: Theme.of(context).textTheme.bodySmall,
         ),
       ),
     );
