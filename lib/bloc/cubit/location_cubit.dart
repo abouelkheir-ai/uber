@@ -10,6 +10,7 @@ class LocationCubit extends Cubit<LocationState> {
   Future<Position> getLocation() async {
     // Get current position
     try {
+      await getPermission();
       emit(LocationLoading());
       Position currentPosition = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
@@ -22,10 +23,7 @@ class LocationCubit extends Cubit<LocationState> {
     }
   }
 
-
-}
-
-getPermission() async {
+  getPermission() async {
   bool serviceEnabled;
   LocationPermission permission;
 
@@ -52,3 +50,6 @@ getPermission() async {
     return;
   }
 }
+
+}
+
