@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:uber/data/driver_controller.dart';
 import 'package:uber/map_try/new_map.dart';
+import 'package:uber/models/driver.dart';
 
 import 'package:uber/widgets/banner_book.dart';
 import 'package:uber/widgets/bottom_navigation_widget.dart';
@@ -76,7 +78,18 @@ class _HomeState extends State<Home> {
                       children: [
                         const HeaderTitle(title: 'Suggestions'),
                         TextButton(
-                            onPressed: () {}, child: const Text('See all'))
+                            onPressed: () {
+                              Driver driver = Driver(
+                                available: true,
+                                carPlate: 'ABC123',
+                                email: 'john@example.com',
+                                name: 'John Doe',
+                              );
+                              // addDriver(driver);
+                              // updateDriver();
+                              getDriverLocation();
+                            },
+                            child: const Text('See all'))
                       ],
                     ),
                     const Row(
