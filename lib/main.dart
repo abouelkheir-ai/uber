@@ -5,9 +5,9 @@ import 'package:uber/constants/themes/dark_theme.dart';
 import 'package:uber/constants/themes/light_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uber/home.dart';
-import 'package:uber/map_try/new_map.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
