@@ -7,6 +7,7 @@ import 'package:uber/constants/themes/light_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uber/home.dart';
 import 'package:uber/services/location_permision.dart';
+import 'package:uber/tab_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
       },
       child: BlocProvider(
         create: (context) => LocationCubit(),
-        child: const Home(),
+        child: const TabPage(),
       ),
     );
   }

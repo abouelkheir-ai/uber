@@ -1,7 +1,4 @@
 import 'package:geolocator/geolocator.dart';
-
-import 'package:uber/services/location_permision.dart';
-
 class LocationService {
   // Private constructor prevents direct instantiation from outside.
   LocationService._();
@@ -15,29 +12,21 @@ class LocationService {
     _instance ??= LocationService._();
     return _instance!;
   }
+}
 
-  // Add your singleton's methods and properties here.
+class MyLocation {
+  LocationService _locationService;
+  MyLocation(this._locationService);
+
+// Add your singleton's methods and properties here.
   Future<Position> getLocation() async {
     // Get current position
     try {
-     
       Position currentPosition = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       return currentPosition;
     } on Exception catch (e) {
-      throw Exception();
-    }
-  }
-
-  Future<Position> getLiveLocation() async {
-    // Get current position
-    try {
-      var locationPermissions = LocationPermissions.instance;
-      await locationPermissions.getPermissions();
-      Position currentPosition = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      return currentPosition;
-    } on Exception catch (e) {
+      print(e);
       throw Exception();
     }
   }

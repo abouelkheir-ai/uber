@@ -10,14 +10,22 @@ class CustomizedButtonNavigation extends StatefulWidget {
       _CustomizedButtonNavigationState();
 }
 
+int _currentIndex = 0;
+
 class _CustomizedButtonNavigationState
     extends State<CustomizedButtonNavigation> {
   @override
   Widget build(BuildContext context) {
+    
     return BottomNavigationBar(
       backgroundColor: Colors.white,
       fixedColor: Colors.black,
       type: BottomNavigationBarType.fixed,
+      onTap: (value) {
+        _currentIndex = value;
+        setState(() {});
+      },
+      currentIndex: _currentIndex,
       items: [
         BottomNavigationBarItem(
           icon: SvgPicture.asset(

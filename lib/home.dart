@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uber/data/driver_controller.dart';
 import 'package:uber/map_try/new_map.dart';
 import 'package:uber/models/driver.dart';
-
 import 'package:uber/widgets/banner_book.dart';
 import 'package:uber/widgets/bottom_navigation_widget.dart';
 import 'package:uber/widgets/header_title.dart';
@@ -20,6 +19,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,15 +80,8 @@ class _HomeState extends State<Home> {
                         const HeaderTitle(title: 'Suggestions'),
                         TextButton(
                             onPressed: () {
-                              Driver driver = Driver(
-                                available: true,
-                                carPlate: 'ABC123',
-                                email: 'john@example.com',
-                                name: 'John Doe',
-                              );
-                              // addDriver(driver);
-                              // updateDriver();
-                              getDriverLocation();
+                              // _firstDriverLocation();
+                              
                             },
                             child: const Text('See all'))
                       ],
