@@ -1,5 +1,5 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:uber/data/driver_controller.dart';
+
 import 'package:uber/services/location_permision.dart';
 
 class LocationService {
@@ -20,8 +20,7 @@ class LocationService {
   Future<Position> getLocation() async {
     // Get current position
     try {
-      var locationPermissions = LocationPermissions.instance;
-      await locationPermissions.getPermissions();
+     
       Position currentPosition = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       return currentPosition;

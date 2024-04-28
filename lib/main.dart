@@ -6,13 +6,14 @@ import 'package:uber/constants/themes/dark_theme.dart';
 import 'package:uber/constants/themes/light_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uber/home.dart';
+import 'package:uber/services/location_permision.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-                              print('object2');
-  
-   runApp(const MyApp());
+  var locationPermissions = LocationPermissions.instance;
+  await locationPermissions.getPermissions();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -31,10 +32,8 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Uber Demo',
           // You can use the library anywhere in the app even in theme
           theme: currentTheme == brightMode ? lightTheme : darkTheme,
-
           home: child,
         );
       },
