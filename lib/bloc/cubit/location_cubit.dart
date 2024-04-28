@@ -10,7 +10,7 @@ class LocationCubit extends Cubit<LocationState> {
   Future<Position> getLocation() async {
     // Get current position
     try {
-      await getPermission();
+      await _getPermission();
       emit(LocationLoading());
       Position currentPosition = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
@@ -23,33 +23,31 @@ class LocationCubit extends Cubit<LocationState> {
     }
   }
 
-  getPermission() async {
-  bool serviceEnabled;
-  LocationPermission permission;
+  _getPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
 
-  // Check if location services are enabled
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    // Location services are not enabled, prompt user to enable location
-    return;
-  }
+    // Check if location services are enabled
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled, prompt user to enable location
+      return;
+    }
 
-  // Check permission status
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    // Permission is denied, request permission
-    permission = await Geolocator.requestPermission();
+    // Check permission status
+    permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
-      // Permission is still denied, show error message
+      // Permission is denied, request permission
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permission is still denied, show error message
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permission is denied forever, handle appropriately
       return;
     }
   }
-
-  if (permission == LocationPermission.deniedForever) {
-    // Permission is denied forever, handle appropriately
-    return;
-  }
 }
-
-}
-

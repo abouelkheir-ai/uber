@@ -12,7 +12,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin:  EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+      margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(24),
@@ -38,7 +38,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
               borderRadius: BorderRadius.circular(24),
               color: Theme.of(context).colorScheme.onSecondary,
             ),
-            margin:  EdgeInsets.symmetric(horizontal: 12.0.w, vertical: 10.h),
+            margin: EdgeInsets.symmetric(horizontal: 12.0.w, vertical: 10.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

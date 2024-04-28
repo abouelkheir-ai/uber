@@ -3,8 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:uber/data/driver_controller.dart';
 import 'package:uber/services/location_service.dart';
+import 'dart:async';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+import 'package:flutter/services.dart';
 
 class MapSample extends StatefulWidget {
   const MapSample({Key? key}) : super(key: key);
@@ -14,55 +17,61 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  @override
-  void initState() {
-    fetchDriverLocation();
-    super.initState();
-  }
-
-  final Completer<Map<String, dynamic>> _driverLocationCompleter =
-      Completer<Map<String, dynamic>>();
-
   GoogleMapController? _controller;
   var locationService = LocationService.instance;
-  Map<String, Marker> _markers = {};
-        Position myPosition = snapshot.data as Position;
 
-   Future<void> fetchDriverLocation() async {
-    // Call getDriverLocation() to retrieve the driver's location
-    Map<String, dynamic> location = await getDriverLocation();
-    if (location.isNotEmpty) {
-      // _updateMarker(location);
-      // _moveCamera(location);
-      _driverLocationCompleter.complete(location);
-    } else {
-      _driverLocationCompleter.completeError('Failed to fetch driver location');
-    }
+  Uint8List? marketimages;
+  List<String> images = [
+    'assets/images/ride.png',
+  ];
+
+// created empty list of markers
+  final List<Marker> _markers = <Marker>[];
+
+// created list of coordinates of various locations
+  final List<LatLng> _latLen = <LatLng>[
+    const LatLng(31.2398947, 29.9596903),
+    const LatLng(31.2398947, 29.9556903),
+    const LatLng(31.2398947, 29.9586903),
+    const LatLng(31.2388947, 29.9546903),
+  ];
+
+// declared method to get Images
+  Future<Uint8List> getImages(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetHeight: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
   }
 
-  // void _updateMarker(Map<String, dynamic> location) {
-  //   final marker = Marker(
-  //     markerId: const MarkerId('driver'),
-  //     position: LatLng(location['latitude'], location['longitude']),
-  //     infoWindow: const InfoWindow(title: 'Driver Location'),
-  //   );
+  @override
+  void initState() {
+    super.initState();
+    // initialize loadData method
+    loadData();
+  }
 
-  //   setState(() {
-  //     _markers['driver'] = marker;
-  //   });
-  // }
+// created method for displaying custom markers according to index
+  loadData() async {
+    final Uint8List markIcons =
+        await getImages(images[0], 70); // Load the image once
+    for (int i = 0; i < _latLen.length; i++) {
+      _markers.add(Marker(
+        markerId: MarkerId(i.toString()),
+        icon: BitmapDescriptor.fromBytes(markIcons),
+        position: _latLen[i],
+        infoWindow: InfoWindow(
+          title: 'Location: $i',
+        ),
+      ));
+    }
+    setState(() {});
+  }
 
-  // void _moveCamera(Map<String, dynamic> location) {
-  //   final newCameraPosition = CameraPosition(
-  //     target: LatLng(location['latitude'], location['longitude']),
-  //     zoom: 15,
-  //   );
-
-  //   _controller
-  //       ?.animateCamera(CameraUpdate.newCameraPosition(newCameraPosition));
-  // }
-
-  Widget _locationBuilder(context, snapshot) {
+  Widget _locationBuilder(context, AsyncSnapshot snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {
       // While waiting for the location, show a loading indicator.
       return const Scaffold(
@@ -87,27 +96,17 @@ class MapSampleState extends State<MapSample> {
                 myPosition.latitude,
                 myPosition.longitude,
               ),
-              zoom: 17,
+              zoom: 15.5,
             ),
             onMapCreated: (GoogleMapController controller) {
               _controller = controller;
+                
             },
             myLocationEnabled: true,
             myLocationButtonEnabled: true,
             zoomControlsEnabled: true,
             compassEnabled: true,
-            markers: {
-              Marker(
-                markerId: const MarkerId('location_marker'),
-                position: LatLng(myPosition.latitude, myPosition.longitude),
-                infoWindow: const InfoWindow(title: 'Location'),
-              ),
-              Marker(
-                markerId: const MarkerId('car_marker'),
-                position: LatLng(myPosition.latitude, myPosition.longitude),
-                infoWindow: const InfoWindow(title: 'car_Location'),
-              ),
-            },
+            markers: Set<Marker>.of(_markers),
           ),
         ),
       );

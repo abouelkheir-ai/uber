@@ -61,18 +61,20 @@ class ServiceBox extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 8.h),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                      letterSpacing: 0.14,
-                      color: MediaQuery.of(context).platformBrightness ==
-                              Brightness.dark
-                          ? const Color(0xffAFAFAF)
-                          : Colors.black,
-                    ),
+              Expanded(
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w500,
+                        height: 0,
+                        letterSpacing: 0.14,
+                        color: MediaQuery.of(context).platformBrightness ==
+                                Brightness.dark
+                            ? const Color(0xffAFAFAF)
+                            : Colors.black,
+                      ),
+                ),
               ),
             ],
           ),
