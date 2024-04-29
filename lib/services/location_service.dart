@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:geolocator/geolocator.dart';
 class LocationService {
   // Private constructor prevents direct instantiation from outside.
@@ -15,7 +17,7 @@ class LocationService {
 }
 
 class MyLocation {
-  LocationService _locationService;
+  final LocationService _locationService;
   MyLocation(this._locationService);
 
 // Add your singleton's methods and properties here.
@@ -31,3 +33,4 @@ class MyLocation {
     }
   }
 }
+

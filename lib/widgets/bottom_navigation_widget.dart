@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:uber/main_tap.dart';
 
 class CustomizedButtonNavigation extends StatefulWidget {
   const CustomizedButtonNavigation({super.key});
@@ -16,14 +17,21 @@ class _CustomizedButtonNavigationState
     extends State<CustomizedButtonNavigation> {
   @override
   Widget build(BuildContext context) {
-    
     return BottomNavigationBar(
       backgroundColor: Colors.white,
       fixedColor: Colors.black,
       type: BottomNavigationBarType.fixed,
       onTap: (value) {
-        _currentIndex = value;
-        setState(() {});
+        if (_currentIndex != value) {
+          _currentIndex = value;
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => MainTap(
+                currentIndex: _currentIndex,
+              ),
+            ),
+          );
+        }
       },
       currentIndex: _currentIndex,
       items: [

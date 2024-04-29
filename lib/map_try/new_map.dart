@@ -14,23 +14,66 @@ class MapSample extends StatefulWidget {
 }
 
 class _MapSampleState extends State<MapSample> {
-  // GoogleMapController? _controller;
-  var locationService = LocationService.instance;
   final MapController _mapController = MapController();
+  late GoogleMapController _googleMapController;
+  late Position myPosition;
+  MyLocation location = MyLocation(LocationService.instance);
+  bool _isMapInitialized =
+      false; // Flag to track if the map is already initialized
 
   @override
-  void initState()   {
+  void initState() {
     super.initState();
-    _initializeMap();
+    _currentLocation();
   }
-Future<void> _initializeMap() async {
-    await _mapController.driversLocation();
-    setState(() {});
+
+  Future<void> _currentLocation() async {
+    myPosition = await location.getLocation();
+    _initializeMap();
+    _liveLocation();
+  }
+
+  void _initializeMap() async {
+    if (!_isMapInitialized) {
+      // Ensure map is initialized only once
+      await _mapController.driversLocation();
+      setState(() {
+        _isMapInitialized = true;
+      });
+    }
+  }
+
+  void _liveLocation() {
+    Geolocator.getPositionStream(
+      locationSettings: const LocationSettings(
+        accuracy: LocationAccuracy.best,
+        distanceFilter: 10,
+      ),
+    ).listen((Position? position) {
+      if (position != null) {
+        setState(() {
+          myPosition = position;
+          _updateCameraPosition();
+        });
+      }
+    });
+  }
+
+  void _updateCameraPosition() async {
+    if (_googleMapController != null) {
+      _googleMapController.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: LatLng(myPosition.latitude, myPosition.longitude),
+            zoom: 15.5,
+          ),
+        ),
+      );
+    }
   }
 
   Widget _locationBuilder(context, AsyncSnapshot snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {
-      // While waiting for the location, show a loading indicator.
       return const Scaffold(
         body: Center(
           child: CircularProgressIndicator(),
@@ -43,7 +86,6 @@ Future<void> _initializeMap() async {
         ),
       );
     } else {
-      Position myPosition = snapshot.data as Position;
       return Scaffold(
         body: SafeArea(
           child: GoogleMap(
@@ -56,7 +98,7 @@ Future<void> _initializeMap() async {
               zoom: 15.5,
             ),
             onMapCreated: (GoogleMapController controller) {
-              // _controller = controller;
+              _googleMapController = controller;
             },
             myLocationEnabled: true,
             myLocationButtonEnabled: true,
@@ -71,9 +113,10 @@ Future<void> _initializeMap() async {
 
   @override
   Widget build(BuildContext context) {
-    MyLocation location = MyLocation(locationService);
+    // Store the location once it's retrieved
     return FutureBuilder(
-        future: location.getLocation(), // or BlocProvider.of<LocationCubit>(context).getLocation(),
-        builder: _locationBuilder);
+      future: location.getLocation(),
+      builder: _locationBuilder,
+    );
   }
 }
