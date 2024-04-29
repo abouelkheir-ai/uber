@@ -3,77 +3,77 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:uber/controller/map_controller.dart';
 import 'package:uber/services/location_service.dart';
-import 'dart:async';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-import 'package:flutter/services.dart';
 
 class MapSample extends StatefulWidget {
   const MapSample({Key? key}) : super(key: key);
 
   @override
-  State<MapSample> createState() => MapSampleState();
+  State<MapSample> createState() => _MapSampleState();
 }
 
-class MapSampleState extends State<MapSample> {
-  GoogleMapController? _controller;
-  var locationService = LocationService.instance;
-
-  Uint8List? marketimages;
-  List<String> images = [
-    'assets/images/ride.png',
-  ];
-
-// created empty list of markers
-  final List<Marker> _markers = <Marker>[];
-
-// created list of coordinates of various locations
-  final List<LatLng> _latLen = <LatLng>[
-    const LatLng(31.2398947, 29.9596903),
-    const LatLng(31.2398947, 29.9556903),
-    const LatLng(31.2398947, 29.9586903),
-    const LatLng(31.2388947, 29.9546903),
-  ];
-
-// declared method to get Images
-  Future<Uint8List> getImages(String path, int width) async {
-    ByteData data = await rootBundle.load(path);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
-        targetHeight: width);
-    ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
-        .buffer
-        .asUint8List();
-  }
+class _MapSampleState extends State<MapSample> {
+  final MapController _mapController = MapController();
+  late GoogleMapController _googleMapController;
+  late Position myPosition;
+  MyLocation location = MyLocation(LocationService.instance);
+  bool _isMapInitialized =
+      false; // Flag to track if the map is already initialized
 
   @override
   void initState() {
     super.initState();
-    // initialize loadData method
-    loadData();
+    _currentLocation();
   }
 
-// created method for displaying custom markers according to index
-  loadData() async {
-    final Uint8List markIcons =
-        await getImages(images[0], 70); // Load the image once
-    for (int i = 0; i < _latLen.length; i++) {
-      _markers.add(Marker(
-        markerId: MarkerId(i.toString()),
-        icon: BitmapDescriptor.fromBytes(markIcons),
-        position: _latLen[i],
-        infoWindow: InfoWindow(
-          title: 'Location: $i',
-        ),
-      ));
+  Future<void> _currentLocation() async {
+    myPosition = await location.getLocation();
+    _initializeMap();
+    _liveLocation();
+  }
+
+  void _initializeMap() async {
+    if (!_isMapInitialized) {
+      // Ensure map is initialized only once
+      await _mapController.driversLocation();
+      setState(() {
+        _isMapInitialized = true;
+      });
     }
-    setState(() {});
+  }
+
+  void _liveLocation() {
+    Geolocator.getPositionStream(
+      locationSettings: const LocationSettings(
+        accuracy: LocationAccuracy.best,
+        distanceFilter: 10,
+      ),
+    ).listen((Position? position) {
+      if (position != null) {
+        setState(() {
+          myPosition = position;
+          _updateCameraPosition();
+        });
+      }
+    });
+  }
+
+  void _updateCameraPosition() async {
+    if (_googleMapController != null) {
+      _googleMapController.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: LatLng(myPosition.latitude, myPosition.longitude),
+            zoom: 15.5,
+          ),
+        ),
+      );
+    }
   }
 
   Widget _locationBuilder(context, AsyncSnapshot snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {
-      // While waiting for the location, show a loading indicator.
       return const Scaffold(
         body: Center(
           child: CircularProgressIndicator(),
@@ -86,7 +86,6 @@ class MapSampleState extends State<MapSample> {
         ),
       );
     } else {
-      Position myPosition = snapshot.data as Position;
       return Scaffold(
         body: SafeArea(
           child: GoogleMap(
@@ -99,14 +98,13 @@ class MapSampleState extends State<MapSample> {
               zoom: 15.5,
             ),
             onMapCreated: (GoogleMapController controller) {
-              _controller = controller;
-                
+              _googleMapController = controller;
             },
             myLocationEnabled: true,
             myLocationButtonEnabled: true,
             zoomControlsEnabled: true,
             compassEnabled: true,
-            markers: Set<Marker>.of(_markers),
+            markers: Set<Marker>.of(_mapController.markers),
           ),
         ),
       );
@@ -115,9 +113,10 @@ class MapSampleState extends State<MapSample> {
 
   @override
   Widget build(BuildContext context) {
+    // Store the location once it's retrieved
     return FutureBuilder(
-        future: locationService
-            .getLocation(), // or BlocProvider.of<LocationCubit>(context).getLocation(),
-        builder: _locationBuilder);
+      future: location.getLocation(),
+      builder: _locationBuilder,
+    );
   }
 }
