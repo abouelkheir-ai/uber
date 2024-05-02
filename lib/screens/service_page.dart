@@ -43,17 +43,36 @@ class _ServicePageState extends State<ServicePage> {
       hasPromo: false,
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size(double.infinity, 50.h),
           child: const MyAppBar(title: 'Service')),
-      body: GridView.builder(
-          itemCount: _serviceBox.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3),
-          itemBuilder: (context, index) => _serviceBox[index]),
+      body: Column(
+        children: [
+          Padding(
+            padding:  EdgeInsets.symmetric(vertical: 40.h, horizontal: 20.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'Go anywhere get anything',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: GridView.builder(
+                itemCount: _serviceBox.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3),
+                itemBuilder: (context, index) => _serviceBox[index]),
+          ),
+        ],
+      ),
     );
   }
 }

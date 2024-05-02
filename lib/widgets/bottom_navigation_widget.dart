@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:uber/main_tap.dart';
+import 'package:uber/screens/main_tap.dart';
 
 class CustomizedButtonNavigation extends StatefulWidget {
   const CustomizedButtonNavigation({super.key});

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:uber/main_tap.dart';
+import 'package:uber/screens/main_tap.dart';
 import 'package:uber/map_try/new_map.dart';
+import 'package:uber/map_try/trying_map.dart';
 import 'package:uber/widgets/banner_book.dart';
 import 'package:uber/widgets/header_title.dart';
 import 'package:uber/widgets/my_list_tile.dart';
@@ -171,19 +172,19 @@ class _HomeState extends State<Home> {
                   SizedBox(
                     height: 15.h,
                   ),
-                  const SingleChildScrollView(
+                  SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        WaysToSaveItem(
+                        const WaysToSaveItem(
                           imagePath: 'assets/images/train.png',
                           title: 'Safety ToolKit',
                           subTitle: 'On-trip help with safety issues',
                         ),
                         SizedBox(
-                          width: 10,
+                          width: 10.w,
                         ),
-                        WaysToSaveItem(
+                        const WaysToSaveItem(
                           imagePath: 'assets/images/head.png',
                           title: 'Send a package',
                           subTitle: 'On-demand deliver to town',
@@ -202,7 +203,7 @@ class _HomeState extends State<Home> {
                     margin: const EdgeInsets.only(left: 5),
                     width: 344.w,
                     height: 198.h,
-                    child: const MapSample(),
+                    child: const MapWithCurrentLocation(),
                   ),
                 ],
               ),

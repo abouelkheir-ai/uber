@@ -1,12 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uber/bloc/cubit/location_cubit.dart';
 import 'package:uber/constants/themes/dark_theme.dart';
 import 'package:uber/constants/themes/light_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:uber/home.dart';
-import 'package:uber/main_tap.dart';
+import 'package:uber/screens/main_tap.dart';
 import 'package:uber/services/location_permision.dart';
 
 void main() async {

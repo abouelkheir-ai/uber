@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uber/home.dart';
-import 'package:uber/service_page.dart';
+import 'package:uber/screens/home.dart';
+import 'package:uber/screens/service_page.dart';
 import 'package:uber/widgets/bottom_navigation_widget.dart';
 
 class MainTap extends StatefulWidget {

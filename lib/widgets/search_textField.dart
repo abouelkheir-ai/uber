@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:uber/screens/map_screen.dart';
 
 class SearchTextField extends StatefulWidget {
   const SearchTextField({super.key});
@@ -29,6 +30,11 @@ class _SearchTextFieldState extends State<SearchTextField> {
                       color: Theme.of(context).colorScheme.onPrimaryContainer,
                     ),
               ),
+              onTap: () {
+                // FocusScope.of(context).requestFocus(FocusNode());
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => const MapScreen()));
+              },
             ),
           ),
           Container(

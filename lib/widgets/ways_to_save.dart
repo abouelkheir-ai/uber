@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:uber/constants/themes/my_styles.dart';
 
 class WaysToSaveItem extends StatelessWidget {
   const WaysToSaveItem(
@@ -33,7 +32,7 @@ class WaysToSaveItem extends StatelessWidget {
             ),
             Text(
               subTitle,
-              style: fontSize15withSemiBold,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
         ),
