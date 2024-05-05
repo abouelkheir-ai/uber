@@ -14,6 +14,8 @@ class _MainTapState extends State<MainTap> {
   final List<Widget> _screen = [
     const Home(),
     const ServicePage(),
+    // const Activity(),
+    // const ProfileScreen(),
   ];
   late Widget? _currentWidget;
   @override

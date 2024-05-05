@@ -21,6 +21,9 @@ class _CustomizedButtonNavigationState
       backgroundColor: Colors.white,
       fixedColor: Colors.black,
       type: BottomNavigationBarType.fixed,
+      showUnselectedLabels: true,
+      unselectedLabelStyle: const TextStyle(color: Colors.black),
+      unselectedItemColor: Colors.black,
       onTap: (value) {
         if (_currentIndex != value) {
           _currentIndex = value;
@@ -41,7 +44,7 @@ class _CustomizedButtonNavigationState
             width: 24.w,
             height: 24.h,
           ),
-          label: "Home ",
+          label: "Home",
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(

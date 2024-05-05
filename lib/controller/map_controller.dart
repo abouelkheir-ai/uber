@@ -12,11 +12,11 @@ class MapController {
 
   final String _imagesPath = 'assets/images/ride.png';
   final List<Marker> _markers = [];
-  get markers =>_markers;
+  get markers => _markers;
   final HandleDriverData _driverData =
       HandleDriverData(FirebaseFirestore.instance);
   final List<LatLng> _driverLocations = [];
-
+  get driversLocation => _driverLocations;
   Future<void> loadDriversLocation() async {
     try {
       List<Driver> nearDriverList = await _driverData.getAllDriversDetails();
@@ -31,10 +31,12 @@ class MapController {
   void _addLocationToMap(List<Driver> drivers) {
     _driverLocations.clear();
     for (var driver in drivers) {
+      print("driver.latitude");
       if (driver.latitude != null && driver.longitude != null) {
         _driverLocations.add(LatLng(driver.latitude!, driver.longitude!));
       }
     }
+    print(_driverLocations[0].latitude);
   }
 
   Future<Uint8List> _getImageBytes(String path, int width) async {
@@ -50,8 +52,7 @@ class MapController {
   }
 
   Future<void> _loadData() async {
-    final Uint8List markerIconBytes =
-        await _getImageBytes(_imagesPath, 70);
+    final Uint8List markerIconBytes = await _getImageBytes(_imagesPath, 70);
     _markers.clear();
     for (int i = 0; i < _driverLocations.length; i++) {
       _markers.add(

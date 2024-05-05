@@ -14,9 +14,8 @@ class _MapWithCurrentLocationState extends State<MapWithCurrentLocation> {
   GoogleMapController? _controller;
   LatLng _currentPosition =
       const LatLng(31.2468482, 29.9936937); // Default position
-
-  final MapController _mapController = MapController();
-
+    final MapController _mapController = MapController();
+  List<LatLng> _driverLocationList = [];
   @override
   void initState() {
     super.initState();
@@ -25,6 +24,7 @@ class _MapWithCurrentLocationState extends State<MapWithCurrentLocation> {
   }
 
   void _getCurrentLocation() async {
+    _driverLocationList = _mapController.driversLocation;
     Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );

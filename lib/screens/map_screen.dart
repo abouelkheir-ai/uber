@@ -16,13 +16,11 @@ class _MapScreenState extends State<MapScreen> {
   LatLng _currentPosition =
       const LatLng(31.2468482, 29.9936937); // Default position
   final MapController _mapController = MapController();
-
   @override
   void initState() {
     super.initState();
     _initializeDriverLocation();
     _getCurrentLocation();
-
   }
 
   void _getCurrentLocation() async {
@@ -49,43 +47,69 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void _updateLocation(Position position) {
-    setState(() {
-      _currentPosition = LatLng(position.latitude, position.longitude);
-    });
-    _controller?.animateCamera(CameraUpdate.newLatLng(_currentPosition));
+    if (mounted) {
+      setState(() {
+        _currentPosition = LatLng(position.latitude, position.longitude);
+      });
+      _controller?.animateCamera(CameraUpdate.newLatLng(_currentPosition));
+    }
   }
 
   Future<void> _initializeDriverLocation() async {
     await _mapController.loadDriversLocation();
+
     setState(() {});
   }
 
-  void _showBottomSheet() async {
-    await showModalBottomSheet(
+  _initializeBottomSheet() {
+    showModalBottomSheet(
+      enableDrag: true,
+      useSafeArea: true,
       context: context,
-      builder: ((context) => Container(
-            height: 100.h,
-            width: 100.w,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50), color: Colors.white),
-            child: const Text('data'),
-          )),
+      builder: (context) {
+        return Container(
+          color: Colors.white,
+          width: double.infinity,
+          height: double.infinity,
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context)
+                .viewInsets
+                .bottom, // Adjust padding for keyboard
+          ),
+          child: Column(
+            children: [
+              const Text('Set your pick-up location'),
+              const Text('Drag the map to move the pin'),
+              TextFormField(
+                decoration:
+                    const InputDecoration(labelText: 'Current Location'),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: _currentPosition,
-          zoom: 15,
-        ),
-        onMapCreated: (GoogleMapController controller) {
-          _controller = controller;
-        },
-        myLocationEnabled: true,
-        myLocationButtonEnabled: true,
+      body: Column(
+        children: [
+          Expanded(
+            child: GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: _currentPosition,
+                zoom: 15,
+              ),
+              onMapCreated: (GoogleMapController controller) {
+                _controller = controller;
+              },
+              myLocationEnabled: true,
+              myLocationButtonEnabled: true,
+            ),
+          ),
+        ],
       ),
       floatingActionButton: IconButton(
         onPressed: () {},

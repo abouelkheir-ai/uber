@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uber/screens/main_tap.dart';
-import 'package:uber/map_try/new_map.dart';
 import 'package:uber/map_try/trying_map.dart';
 import 'package:uber/widgets/banner_book.dart';
 import 'package:uber/widgets/header_title.dart';
